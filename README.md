@@ -1,6 +1,6 @@
 # Text Classification with CNN and RNN
 
-使用卷积神经网络以及循环神经网络进行中文文本分类
+目的：使用卷积神经网络以及循环神经网络进行中文文本分类
 
 CNN做句子分类的论文可以参看: [Convolutional Neural Networks for Sentence Classification](https://arxiv.org/abs/1408.5882)
 
@@ -14,11 +14,12 @@ CNN做句子分类的论文可以参看: [Convolutional Neural Networks for Sent
 
 ## 环境
 
-- Python 2/3 (感谢[howie.hu](https://github.com/howie6879)调试Python2环境)
+- Python 3 
 - TensorFlow 1.3以上
 - numpy
 - scikit-learn
 - scipy
+- ubuntu18.04
 
 ## 数据集
 
@@ -105,39 +106,50 @@ class TCNNConfig(object):
 
 ### 训练与验证
 
-运行 `python run_cnn.py train`，可以开始训练。
+运行 `python3 run_cnn.py train`，可以开始训练。
 
 > 若之前进行过训练，请把tensorboard/textcnn删除，避免TensorBoard多次训练结果重叠。
 
 ```
-Configuring CNN model...
-Configuring TensorBoard and Saver...
-Loading training and validation data...
-Time usage: 0:00:14
+2019-07-23 18:25:33.132745: W tensorflow/compiler/jit/mark_for_compilation_pass.cc:1412] (One-time warning): Not using XLA:CPU for cluster because envvar TF_XLA_FLAGS=--tf_xla_cpu_global_jit was not set.  If you want XLA:CPU, either set that envvar, or use experimental_jit_scope to enable XLA:CPU.  To confirm that XLA is active, pass --vmodule=xla_compilation_cache=1 (as a proper command-line flag, not via TF_XLA_FLAGS) or set the envvar XLA_FLAGS=--xla_hlo_profile.
 Training and evaluating...
 Epoch: 1
-Iter:      0, Train Loss:    2.3, Train Acc:  10.94%, Val Loss:    2.3, Val Acc:   8.92%, Time: 0:00:01 *
-Iter:    100, Train Loss:   0.88, Train Acc:  73.44%, Val Loss:    1.2, Val Acc:  68.46%, Time: 0:00:04 *
-Iter:    200, Train Loss:   0.38, Train Acc:  92.19%, Val Loss:   0.75, Val Acc:  77.32%, Time: 0:00:07 *
-Iter:    300, Train Loss:   0.22, Train Acc:  92.19%, Val Loss:   0.46, Val Acc:  87.08%, Time: 0:00:09 *
-Iter:    400, Train Loss:   0.24, Train Acc:  90.62%, Val Loss:    0.4, Val Acc:  88.62%, Time: 0:00:12 *
-Iter:    500, Train Loss:   0.16, Train Acc:  96.88%, Val Loss:   0.36, Val Acc:  90.38%, Time: 0:00:15 *
-Iter:    600, Train Loss:  0.084, Train Acc:  96.88%, Val Loss:   0.35, Val Acc:  91.36%, Time: 0:00:17 *
-Iter:    700, Train Loss:   0.21, Train Acc:  93.75%, Val Loss:   0.26, Val Acc:  92.58%, Time: 0:00:20 *
+2019-07-23 18:25:33.357006: W tensorflow/core/framework/allocator.cc:107] Allocation of 78118912 exceeds 10% of system memory.
+2019-07-23 18:25:33.411465: W tensorflow/core/framework/allocator.cc:107] Allocation of 78118912 exceeds 10% of system memory.
+2019-07-23 18:25:33.465147: W tensorflow/core/framework/allocator.cc:107] Allocation of 78118912 exceeds 10% of system memory.
+2019-07-23 18:25:33.518551: W tensorflow/core/framework/allocator.cc:107] Allocation of 78118912 exceeds 10% of system memory.
+2019-07-23 18:25:33.572679: W tensorflow/core/framework/allocator.cc:107] Allocation of 78118912 exceeds 10% of system memory.
+Iter:      0, Train Loss:    2.3, Train Acc:   7.81%, Val Loss:    2.3, Val Acc:  10.06%, Time: 0:00:02 *
+Iter:    100, Train Loss:   0.67, Train Acc:  79.69%, Val Loss:    1.1, Val Acc:  70.44%, Time: 0:00:17 *
+Iter:    200, Train Loss:   0.24, Train Acc:  92.19%, Val Loss:   0.65, Val Acc:  79.22%, Time: 0:00:32 *
+Iter:    300, Train Loss:   0.19, Train Acc:  92.19%, Val Loss:   0.45, Val Acc:  87.12%, Time: 0:00:46 *
+Iter:    400, Train Loss:   0.15, Train Acc:  96.88%, Val Loss:   0.38, Val Acc:  88.64%, Time: 0:01:08 *
+Iter:    500, Train Loss:   0.15, Train Acc:  95.31%, Val Loss:   0.33, Val Acc:  89.92%, Time: 0:01:22 *
+Iter:    600, Train Loss:   0.27, Train Acc:  87.50%, Val Loss:   0.31, Val Acc:  91.16%, Time: 0:01:36 *
+Iter:    700, Train Loss:   0.31, Train Acc:  89.06%, Val Loss:    0.3, Val Acc:  91.08%, Time: 0:01:51 
 Epoch: 2
-Iter:    800, Train Loss:   0.07, Train Acc:  98.44%, Val Loss:   0.24, Val Acc:  94.12%, Time: 0:00:23 *
-Iter:    900, Train Loss:  0.092, Train Acc:  96.88%, Val Loss:   0.27, Val Acc:  92.86%, Time: 0:00:25
-Iter:   1000, Train Loss:   0.17, Train Acc:  95.31%, Val Loss:   0.28, Val Acc:  92.82%, Time: 0:00:28
-Iter:   1100, Train Loss:    0.2, Train Acc:  93.75%, Val Loss:   0.23, Val Acc:  93.26%, Time: 0:00:31
-Iter:   1200, Train Loss:  0.081, Train Acc:  98.44%, Val Loss:   0.25, Val Acc:  92.96%, Time: 0:00:33
-Iter:   1300, Train Loss:  0.052, Train Acc: 100.00%, Val Loss:   0.24, Val Acc:  93.58%, Time: 0:00:36
-Iter:   1400, Train Loss:    0.1, Train Acc:  95.31%, Val Loss:   0.22, Val Acc:  94.12%, Time: 0:00:39
-Iter:   1500, Train Loss:   0.12, Train Acc:  98.44%, Val Loss:   0.23, Val Acc:  93.58%, Time: 0:00:41
+Iter:    800, Train Loss:   0.13, Train Acc:  95.31%, Val Loss:   0.26, Val Acc:  91.52%, Time: 0:02:06 *
+Iter:    900, Train Loss:  0.068, Train Acc:  98.44%, Val Loss:   0.23, Val Acc:  92.90%, Time: 0:02:22 *
+Iter:   1000, Train Loss:  0.037, Train Acc:  98.44%, Val Loss:   0.24, Val Acc:  92.86%, Time: 0:02:38 
+Iter:   1100, Train Loss:  0.032, Train Acc: 100.00%, Val Loss:   0.22, Val Acc:  94.14%, Time: 0:02:53 *
+Iter:   1200, Train Loss:   0.03, Train Acc: 100.00%, Val Loss:   0.25, Val Acc:  93.00%, Time: 0:03:09 
+Iter:   1300, Train Loss:   0.12, Train Acc:  93.75%, Val Loss:   0.19, Val Acc:  94.94%, Time: 0:03:24 *
+Iter:   1400, Train Loss:   0.15, Train Acc:  95.31%, Val Loss:   0.23, Val Acc:  92.82%, Time: 0:03:39 
+Iter:   1500, Train Loss:  0.077, Train Acc:  98.44%, Val Loss:   0.18, Val Acc:  95.16%, Time: 0:03:54 *
 Epoch: 3
-Iter:   1600, Train Loss:    0.1, Train Acc:  96.88%, Val Loss:   0.26, Val Acc:  92.34%, Time: 0:00:44
-Iter:   1700, Train Loss:  0.018, Train Acc: 100.00%, Val Loss:   0.22, Val Acc:  93.46%, Time: 0:00:47
-Iter:   1800, Train Loss:  0.036, Train Acc: 100.00%, Val Loss:   0.28, Val Acc:  92.72%, Time: 0:00:50
+Iter:   1600, Train Loss:  0.025, Train Acc: 100.00%, Val Loss:   0.22, Val Acc:  93.04%, Time: 0:04:09 
+Iter:   1700, Train Loss:  0.038, Train Acc:  98.44%, Val Loss:   0.22, Val Acc:  93.62%, Time: 0:04:24 
+Iter:   1800, Train Loss: 0.0078, Train Acc: 100.00%, Val Loss:    0.2, Val Acc:  94.30%, Time: 0:04:39 
+Iter:   1900, Train Loss:  0.031, Train Acc: 100.00%, Val Loss:   0.22, Val Acc:  93.82%, Time: 0:04:57 
+Iter:   2000, Train Loss:  0.018, Train Acc: 100.00%, Val Loss:   0.25, Val Acc:  93.00%, Time: 0:05:13 
+Iter:   2100, Train Loss:   0.01, Train Acc: 100.00%, Val Loss:   0.21, Val Acc:  93.62%, Time: 0:05:28 
+Iter:   2200, Train Loss:  0.039, Train Acc:  98.44%, Val Loss:   0.22, Val Acc:  94.08%, Time: 0:05:44 
+Iter:   2300, Train Loss:  0.071, Train Acc:  96.88%, Val Loss:   0.18, Val Acc:  94.92%, Time: 0:05:59 
+Epoch: 4
+Iter:   2400, Train Loss:  0.045, Train Acc:  98.44%, Val Loss:   0.21, Val Acc:  94.20%, Time: 0:06:15 
+Iter:   2500, Train Loss:   0.04, Train Acc:  98.44%, Val Loss:    0.2, Val Acc:  94.82%, Time: 0:06:31 
 No optimization for a long time, auto-stopping...
+
 ```
 
 在验证集上的最佳效果为94.12%，且只经过了3轮迭代就已经停止。
@@ -149,44 +161,43 @@ No optimization for a long time, auto-stopping...
 
 ### 测试
 
-运行 `python run_cnn.py test` 在测试集上进行测试。
+运行 `python3 run_cnn.py test` 在测试集上进行测试。
 
 ```
-Configuring CNN model...
-Loading test data...
-Testing...
-Test Loss:   0.14, Test Acc:  96.04%
+Test Loss:   0.13, Test Acc:  96.17%
 Precision, Recall and F1-Score...
-             precision    recall  f1-score   support
+              precision    recall  f1-score   support
 
-         体育       0.99      0.99      0.99      1000
-         财经       0.96      0.99      0.97      1000
-         房产       1.00      1.00      1.00      1000
-         家居       0.95      0.91      0.93      1000
-         教育       0.95      0.89      0.92      1000
-         科技       0.94      0.97      0.95      1000
-         时尚       0.95      0.97      0.96      1000
-         时政       0.94      0.94      0.94      1000
-         游戏       0.97      0.96      0.97      1000
-         娱乐       0.95      0.98      0.97      1000
+          体育       1.00      0.99      0.99      1000
+          财经       0.96      0.99      0.98      1000
+          房产       1.00      1.00      1.00      1000
+          家居       0.98      0.88      0.93      1000
+          教育       0.92      0.92      0.92      1000
+          科技       0.92      0.98      0.95      1000
+          时尚       0.97      0.96      0.96      1000
+          时政       0.96      0.93      0.95      1000
+          游戏       0.96      0.98      0.97      1000
+          娱乐       0.96      0.98      0.97      1000
 
-avg / total       0.96      0.96      0.96     10000
+    accuracy                           0.96     10000
+   macro avg       0.96      0.96      0.96     10000
+weighted avg       0.96      0.96      0.96     10000
 
 Confusion Matrix...
-[[991   0   0   0   2   1   0   4   1   1]
- [  0 992   0   0   2   1   0   5   0   0]
- [  0   1 996   0   1   1   0   0   0   1]
- [  0  14   0 912   7  15   9  29   3  11]
- [  2   9   0  12 892  22  18  21  10  14]
- [  0   0   0  10   1 968   4   3  12   2]
- [  1   0   0   9   4   4 971   0   2   9]
- [  1  16   0   4  18  12   1 941   1   6]
- [  2   4   1   5   4   5  10   1 962   6]
- [  1   0   1   6   4   3   5   0   1 979]]
-Time usage: 0:00:05
+[[989   0   1   0   4   2   0   2   2   0]
+ [  0 993   0   0   2   1   0   4   0   0]
+ [  0   0 996   1   2   1   0   0   0   0]
+ [  1  15   2 883  25  26  10  21   7  10]
+ [  0   8   1   8 920  26  10  10   9   8]
+ [  0   0   0   1   3 980   4   1  11   0]
+ [  1   0   0   6   9   2 962   0   6  14]
+ [  0  16   1   0  26  17   0 934   1   5]
+ [  0   2   0   2   3   2   4   1 983   3]
+ [  1   0   0   3   7   4   4   1   3 977]]
+Time usage: 0:00:10（原作者的时间是0：00：05）
 ```
 
-在测试集上的准确率达到了96.04%，且各类的precision, recall和f1-score都超过了0.9。
+在测试集上的准确率达到了96.17%(和原作者的不一样，原作者是96.04），且各类的precision, recall和f1-score都超过了0.9。
 
 从混淆矩阵也可以看出分类效果非常优秀。
 
